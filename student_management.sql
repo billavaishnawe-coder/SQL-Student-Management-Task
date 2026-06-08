@@ -1,0 +1,74 @@
+# DATABASE SETUP
+CREATE DATABASE StudentManagement;
+
+use StudentManagement;
+
+#CREATE A TABLE
+create table students(
+ student_id int auto_increment primary key,
+ name varchar(50),
+ gender varchar(50),
+ age int not NULL,
+ grade varchar(50),
+ maths_score int ,
+ science_score int,
+ english_score int 
+);
+
+
+#INSERT DATA
+INSERT INTO Students(name, gender, age, grade, maths_score, science_score, english_score)
+VALUES
+('Amar','Male',18,'A',85,78,90),
+('Priya','Female',17,'B',76,88,80),
+('Kiran','Male',18,'A',92,85,89),
+('Sneha','Female',17,'C',68,72,75),
+('Arjun','Male',19,'B',81,79,83),
+('Vaishnawe','Female',18,'A',95,91,94),
+('Vamsi','Male',17,'C',70,65,72),
+('Anjali','Female',18,'B',88,90,86),
+('Sai','Male',19,'A',77,82,79),
+('Keerthi','Female',17,'C',84,80,85);
+
+#ALL DETAILS OF STUDENTS
+SELECT * FROM STUDENTS;
+
+#  AVEGRAGE SCORE IN EACH SUBJECT
+SELECT AVG(MATHS_SCORE) AS AVG_OF_MATHS,
+AVG(SCIENCE_SCORE) AS AVG_OF_SCIENCE,
+AVG(ENGLISH_SCORE) AS AVG_OF_ENGLISH
+FROM STUDENTS;
+
+
+# TOP PERFORMER 
+SELECT NAME, (MATHS_SCORE+SCIENCE_SCORE+ENGLISH_SCORE) 
+AS TOTAL_SCORE 
+FROM STUDENTS
+ORDER BY TOTAL_SCORE DESC
+LIMIT 1;
+
+
+#  COUNT STUDENTS BY GRADE
+SELECT GRADE,COUNT(NAME) AS TOTAL_STUDENTS
+FROM  STUDENTS
+GROUP BY GRADE;
+
+
+#  AVGSCORE BY GENDER
+SELECT GENDER , AVG(MATHS_SCORE+SCIENCE_SCORE+ENGLISH_SCORE) AS AVG_SCORE_OF_STUDENT
+FROM STUDENTS
+GROUP BY GENDER;
+
+
+# STUDENTS WITH MATHS SCORCE > 80
+SELECT NAME , MATHS_SCORE 
+FROM STUDENTS
+WHERE  MATHS_SCORE > 80;
+
+# USE TO MAKE UPDATE IN DATA
+SET SQL_SAFE_UPDATES = 0;
+
+# UPDATE A STUDENT GRADE
+UPDATE Students
+SET Grade='A+'
+WHERE Name LIKE 'AMAR';
